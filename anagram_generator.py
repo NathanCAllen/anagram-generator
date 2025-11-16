@@ -91,8 +91,8 @@ class AnagramGenerator:
 
             def __init__(self):
                 self.words: set[str] = set()
-                self.children: defaultdict[
-                    str, AnagramGenerator.Dictionary.Node] = defaultdict(AnagramGenerator.Dictionary.Node)
+                self.children: defaultdict[str, AnagramGenerator.Dictionary.Node] = defaultdict(
+                    AnagramGenerator.Dictionary.Node)
 
             def traverse(self, path: str) -> set[str]:
                 """Travel path to end node and return words."""
