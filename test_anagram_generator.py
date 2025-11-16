@@ -18,26 +18,20 @@ class TestAnagramGenerator(unittest.TestCase):
 
     def test_generate_anagrams_returns_correct_count(self):
         """Test that generate_anagrams returns correct number of anagrams."""
-        anagrams = self.generator.generate_anagrams(word_size=5,
-                                                    count=3,
-                                                    count_fake=0)
+        anagrams = self.generator.generate_anagrams(word_size=5, count=3, count_fake=0)
         self.assertEqual(len(anagrams), 3)
 
     def test_generate_anagrams_correct_length(self):
         """Test that generated anagrams have the correct length."""
         word_size = 6
-        anagrams = self.generator.generate_anagrams(word_size=word_size,
-                                                    count=5,
-                                                    count_fake=0)
+        anagrams = self.generator.generate_anagrams(word_size=word_size, count=5, count_fake=0)
 
         for anagram in anagrams:
             self.assertEqual(len(anagram), word_size)
 
     def test_generate_anagrams_are_shuffled(self):
         """Test that generated anagrams are shuffled (not original words)."""
-        anagrams = self.generator.generate_anagrams(word_size=6,
-                                                    count=10,
-                                                    count_fake=0)
+        anagrams = self.generator.generate_anagrams(word_size=6, count=10, count_fake=0)
 
         for anagram in anagrams:
             solutions = self.generator.solve(anagram)
@@ -45,24 +39,18 @@ class TestAnagramGenerator(unittest.TestCase):
 
     def test_generate_zero_anagrams(self):
         """Test generating zero anagrams."""
-        anagrams = self.generator.generate_anagrams(word_size=5,
-                                                    count=0,
-                                                    count_fake=0)
+        anagrams = self.generator.generate_anagrams(word_size=5, count=0, count_fake=0)
         self.assertEqual(len(anagrams), 0)
 
     def test_generate_one_anagram(self):
         """Test generating exactly one anagram."""
-        anagrams = self.generator.generate_anagrams(word_size=5,
-                                                    count=1,
-                                                    count_fake=0)
+        anagrams = self.generator.generate_anagrams(word_size=5, count=1, count_fake=0)
         self.assertEqual(len(anagrams), 1)
         self.assertEqual(len(anagrams[0]), 5)
 
     def test_generate_anagrams_with_fakes(self):
         """Test generating anagrams with fake words."""
-        anagrams = self.generator.generate_anagrams(word_size=5,
-                                                    count=5,
-                                                    count_fake=2)
+        anagrams = self.generator.generate_anagrams(word_size=5, count=5, count_fake=2)
 
         self.assertEqual(len(anagrams), 5)
 
@@ -77,9 +65,7 @@ class TestAnagramGenerator(unittest.TestCase):
     def test_generate_anagrams_raises_on_too_many_fakes(self):
         """Test that error is raised when count_fake > count."""
         with self.assertRaises(ValueError) as context:
-            self.generator.generate_anagrams(word_size=5,
-                                             count=3,
-                                             count_fake=5)
+            self.generator.generate_anagrams(word_size=5, count=3, count_fake=5)
 
         self.assertIn("fake anagrams cannot be greater",
                       str(context.exception))
@@ -87,27 +73,21 @@ class TestAnagramGenerator(unittest.TestCase):
     def test_generate_anagrams_raises_on_insufficient_words(self):
         """Test that error is raised when not enough words of desired length."""
         with self.assertRaises(ValueError) as context:
-            self.generator.generate_anagrams(word_size=25,
-                                             count=100,
-                                             count_fake=0)
+            self.generator.generate_anagrams(word_size=25, count=100, count_fake=0)
 
         self.assertIn("Not enough words", str(context.exception))
 
-        def test_generate_anagrams_raises_on_insufficient_words_skip_unmixable_words(
-                self):
-            """Test that error is raised when not enough words of desired length after unmixable words are ignored."""
-            with self.assertRaises(ValueError) as context:
-                self.generator.generate_anagrams(word_size=2,
-                                                 count=89,
-                                                 count_fake=0)
+    def test_generate_anagrams_raises_on_insufficient_words_skip_unmixable_words(
+            self):
+        """Test that error is raised when not enough words of desired length after unmixable words are ignored."""
+        with self.assertRaises(ValueError) as context:
+            self.generator.generate_anagrams(word_size=2, count=89, count_fake=0)
 
-            self.assertIn("Not enough words", str(context.exception))
+        self.assertIn("Not enough words", str(context.exception))
 
     def test_generate_anagrams_no_fakes(self):
         """Test generating anagrams with no fakes (all solvable)."""
-        anagrams = self.generator.generate_anagrams(word_size=4,
-                                                    count=3,
-                                                    count_fake=0)
+        anagrams = self.generator.generate_anagrams(word_size=4, count=3, count_fake=0)
 
         for anagram in anagrams:
             solutions = self.generator.solve(anagram)
@@ -116,9 +96,7 @@ class TestAnagramGenerator(unittest.TestCase):
 
     def test_generate_all_fakes(self):
         """Test generating anagrams where all are fake."""
-        anagrams = self.generator.generate_anagrams(word_size=5,
-                                                    count=5,
-                                                    count_fake=5)
+        anagrams = self.generator.generate_anagrams(word_size=5, count=5, count_fake=5)
 
         # All should be fake
         fake_count = 0
@@ -163,9 +141,7 @@ class TestAnagramGenerator(unittest.TestCase):
     def test_fakify_creates_unsolvable_word(self):
         """Test that _fakify creates words that can't be solved."""
         # Get a real anagram first
-        real_anagrams = self.generator.generate_anagrams(word_size=5,
-                                                         count=1,
-                                                         count_fake=0)
+        real_anagrams = self.generator.generate_anagrams(word_size=5, count=1, count_fake=0)
         real_anagram = real_anagrams[0]
 
         # Fakify it
@@ -173,8 +149,7 @@ class TestAnagramGenerator(unittest.TestCase):
 
         # The fake should not be solvable
         solutions = self.generator.solve(fake)
-        self.assertEqual(len(solutions), 0,
-                         f"Fake word '{fake}' should not be solvable")
+        self.assertEqual(len(solutions), 0, f"Fake word '{fake}' should not be solvable")
 
     # constants
 

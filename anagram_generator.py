@@ -8,14 +8,11 @@ class AnagramGenerator:
     def __init__(self, file_name: str = "./sowpods.txt"):
         self.dictionary = AnagramGenerator.Dictionary(file_name)
 
-    def generate_anagrams(self, word_size: int, count: int,
-                          count_fake: int) -> list[str]:
+    def generate_anagrams(self, word_size: int, count: int, count_fake: int) -> list[str]:
         """Return a list of anagram puzzles of provided size with a given number of fake puzzles."""
 
         if count_fake > count:
-            raise ValueError(
-                "Number of fake anagrams cannot be greater than number of total anagrams requested"
-            )
+            raise ValueError("Number of fake anagrams cannot be greater than number of total anagrams requested")
 
         if count == 0:
             return []
@@ -71,9 +68,7 @@ class AnagramGenerator:
     _VOWELS = ['A', 'E', 'I', 'O', 'U']
 
     # only use relatively common letters to make the fakes more believable
-    _COMMON_CONSONANTS = [
-        'B', 'C', 'D', 'F', 'G', 'H', 'K', 'L', 'M', 'N', 'P', 'R', 'S', 'T'
-    ]
+    _COMMON_CONSONANTS = ['B', 'C', 'D', 'F', 'G', 'H', 'K', 'L', 'M', 'N', 'P', 'R', 'S', 'T']
     _COMMON_VOWELS = ['A', 'E', 'I', 'O']
 
     def _fakify(self, anagram: str) -> str:
@@ -83,11 +78,9 @@ class AnagramGenerator:
             letter_to_change = choice(new_word)
             # replacing letter with another of its type will hopefully make these more believable
             if letter_to_change in self._VOWELS:
-                new_word = new_word.replace(letter_to_change,
-                                            choice(self._COMMON_VOWELS), 1)
+                new_word = new_word.replace(letter_to_change, choice(self._COMMON_VOWELS), 1)
             else:
-                new_word = new_word.replace(letter_to_change,
-                                            choice(self._COMMON_CONSONANTS), 1)
+                new_word = new_word.replace(letter_to_change, choice(self._COMMON_CONSONANTS), 1)
         return new_word
 
     class Dictionary:
@@ -99,8 +92,7 @@ class AnagramGenerator:
             def __init__(self):
                 self.words: set[str] = set()
                 self.children: defaultdict[
-                    str, AnagramGenerator.Dictionary.Node] = defaultdict(
-                    AnagramGenerator.Dictionary.Node)
+                    str, AnagramGenerator.Dictionary.Node] = defaultdict(AnagramGenerator.Dictionary.Node)
 
             def traverse(self, path: str) -> set[str]:
                 """Travel path to end node and return words."""
@@ -111,8 +103,7 @@ class AnagramGenerator:
 
         def __init__(self, file_name: str = "./sowpods.txt"):
             # sets of unique letter combinations that can be made into valid words
-            self._letterCombosByLength: defaultdict[
-                int, set[str]] = defaultdict(set)
+            self._letterCombosByLength: defaultdict[int, set[str]] = defaultdict(set)
             self._wordTree = AnagramGenerator.Dictionary.Node()
 
             with open(file_name) as file:

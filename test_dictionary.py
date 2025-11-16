@@ -10,8 +10,7 @@ class TestDictionary(unittest.TestCase):
         """Create a temporary test file with known words."""
         cls.test_file = "test_words.txt"
         cls.test_words = [
-            "CAT", "DOG", "ACT", "TAC", "GOD", "BIRD", "LISTEN", "SILENT",
-            "ENLIST", "EAT", "TEA", "ATE", "AT", "TA"
+            "CAT", "DOG", "ACT", "TAC", "GOD", "BIRD", "LISTEN", "SILENT", "ENLIST", "EAT", "TEA", "ATE", "AT", "TA"
         ]
 
     def setUp(self):
